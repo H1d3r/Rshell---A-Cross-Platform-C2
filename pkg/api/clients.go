@@ -10,6 +10,7 @@ import (
 	"Rshell/pkg/utils"
 	"context"
 	"encoding/binary"
+	"fmt"
 	"io/ioutil"
 	"net/http"
 	"os"
@@ -254,25 +255,45 @@ func FileUpload(c *gin.Context) {
 	uploadPathLenBytes := make([]byte, 4)
 	binary.BigEndian.PutUint32(uploadPathLenBytes, uint32(uploadPathLen))
 	fileBytesArray := utils.SplitByteArray(fileBytes, 1040500)
+	totalChunks := len(fileBytesArray)
 	go func() {
-		if len(fileBytesArray) == 0 {
+		if totalChunks == 0 {
 			return
 		}
+
+		// 写入 shell 通知：上传开始
+		var shell database.Shell
+		if _, err := database.Engine.Where("uid = ?", uid).Get(&shell); err == nil {
+			shell.ShellContent += fmt.Sprintf("[*] Upload started: %s (%d bytes, %d chunks)\n",
+				uploadPath, len(fileBytes), totalChunks)
+			database.Engine.Where("uid = ?", uid).Update(&shell)
+		}
+
 		cmd := utils.BytesCombine(uploadPathLenBytes, uploadPathBytes, fileBytesArray[0])
 		cmdTypeBytes := make([]byte, 4)
 		binary.BigEndian.PutUint32(cmdTypeBytes, uint32(command.UploadStart))
 		byteToSend := append(cmdTypeBytes, cmd...)
 		sendcommand.SendCommandBytes(uid, byteToSend)
 
-		for _, filebytes := range fileBytesArray[1:] {
+		for i, filebytes := range fileBytesArray[1:] {
 			cmdLoop := utils.BytesCombine(uploadPathLenBytes, uploadPathBytes, filebytes)
 			cmdTypeBytesLoop := make([]byte, 4)
 			binary.BigEndian.PutUint32(cmdTypeBytesLoop, uint32(command.UploadLoop))
 			byteToSendLoop := append(cmdTypeBytesLoop, cmdLoop...)
 			sendcommand.SendCommandBytes(uid, byteToSendLoop)
+
+			// 每 5 个 chunk 更新一次 shell 进度
+			if (i+1)%5 == 0 || i+1 == totalChunks-1 {
+				var s database.Shell
+				if _, err := database.Engine.Where("uid = ?", uid).Get(&s); err == nil {
+					s.ShellContent += fmt.Sprintf("[*] Upload progress: %s (%d/%d chunks queued)\n",
+						uploadPath, i+2, totalChunks)
+					database.Engine.Where("uid = ?", uid).Update(&s)
+				}
+			}
 		}
 	}()
-	c.JSON(http.StatusOK, gin.H{"status": http.StatusOK})
+	c.JSON(http.StatusOK, gin.H{"status": http.StatusOK, "data": gin.H{"chunks": totalChunks, "size": len(fileBytes)}})
 }
 func GetNote(c *gin.Context) {
 	var noteBody struct {
