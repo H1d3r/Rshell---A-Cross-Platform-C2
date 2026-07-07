@@ -64,6 +64,10 @@ func ParseDirectoryString(uid string, data string) []*FileNode {
 	currentDir := strings.TrimSuffix(lines[0], "/*")
 	currentDir = strings.Replace(currentDir, "\\", "/", -1)
 	currentDir = strings.TrimSuffix(currentDir, "/")
+	// 修复：根目录 trim 后变空，需要保留 "/"
+	if currentDir == "" {
+		currentDir = "/"
+	}
 
 	// 判断操作系统类型
 	isWindows := len(currentDir) >= 2 && currentDir[1] == ':'
@@ -100,7 +104,12 @@ func ParseDirectoryString(uid string, data string) []*FileNode {
 		child := &FileNode{
 			Name: parts[3],
 			Type: parts[0],
-			Path: currentDir + "/" + parts[3],
+		}
+		// 修复：currentDir 为根目录 "/" 时，路径拼接不要产生双斜杠
+		if currentDir == "/" {
+			child.Path = "/" + parts[3]
+		} else {
+			child.Path = currentDir + "/" + parts[3]
 		}
 
 		if parts[0] == "F" {
