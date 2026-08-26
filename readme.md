@@ -1,9 +1,6 @@
 # Rshell - 跨平台多协议 C2 框架
 
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](./LICENSE)
-![Language](https://img.shields.io/badge/Language-Go-blue)
-![GitHub Stars](https://img.shields.io/github/stars/Rubby2001/Rshell---A-Cross-Platform-C2?style=social)
-![GitHub Release](https://img.shields.io/github/v/release/Rubby2001/Rshell---A-Cross-Platform-C2)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](./LICENSE)![Language](https://img.shields.io/badge/Language-Go-blue)![GitHub Stars](https://img.shields.io/github/stars/Rubby2001/Rshell---A-Cross-Platform-C2?style=social)![GitHub Release](https://img.shields.io/github/v/release/Rubby2001/Rshell---A-Cross-Platform-C2)
 
 Rshell 是一款开源的 Golang 编写的支持多平台的 C2 框架，旨在帮助安服人员渗透测试、红蓝对抗。
 
@@ -60,19 +57,10 @@ Rshell 是一款开源的 Golang 编写的支持多平台的 C2 框架，旨在�
 <details>
 <summary>📌 查看 ToDoList</summary>
 
-- [x] 一键退出所有终端
 - [ ] 文件下载增加中断功能  [#21](https://github.com/Rubby2001/Rshell---A-Cross-Platform-C2/issues/21)
-- [x] 截图功能  [#9](https://github.com/Rubby2001/Rshell---A-Cross-Platform-C2/issues/9)
-- [x] Linux 内存执行
-- [x] Web 托管 Bash、Bat 脚本  [#24](https://github.com/Rubby2001/Rshell---A-Cross-Platform-C2/issues/24)（合并到内存执行）
 - [ ] 笔记功能增加图床
 - [ ] 笔记 Markdown 格式所见即所得
 - [ ] 一键信息收集，收集信息内容直接保存到笔记中
-- [x] 丰富上线提醒的方式（邮箱、钉钉、Telegram 等）
-- [x] 增加正向上线方式  [#26](https://github.com/Rubby2001/Rshell---A-Cross-Platform-C2/issues/26)
-- [x] 增加插件模块  [#9](https://github.com/Rubby2001/Rshell---A-Cross-Platform-C2/issues/9)
-- [x] 增加开机启动等插件是否合适  [#9](https://github.com/Rubby2001/Rshell---A-Cross-Platform-C2/issues/9)（可借助插件模块实现）
-- [x] 通讯流量实现自定义配置或随机密钥，增加逆向解密难度
 
 </details>
 
