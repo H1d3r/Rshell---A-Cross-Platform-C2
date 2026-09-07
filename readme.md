@@ -1,6 +1,9 @@
 # Rshell - 跨平台多协议 C2 框架
 
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](./LICENSE)![Language](https://img.shields.io/badge/Language-Go-blue)![GitHub Stars](https://img.shields.io/github/stars/Rubby2001/Rshell---A-Cross-Platform-C2?style=social)![GitHub Release](https://img.shields.io/github/v/release/Rubby2001/Rshell---A-Cross-Platform-C2)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](./LICENSE)
+![Language](https://img.shields.io/badge/Language-Go-blue)
+![GitHub Stars](https://img.shields.io/github/stars/Rubby2001/Rshell---A-Cross-Platform-C2?style=social)
+![GitHub Release](https://img.shields.io/github/v/release/Rubby2001/Rshell---A-Cross-Platform-C2)
 
 Rshell 是一款开源的 Golang 编写的支持多平台的 C2 框架，旨在帮助安服人员渗透测试、红蓝对抗。
 
@@ -77,3 +80,12 @@ Rshell 是一款开源的 Golang 编写的支持多平台的 C2 框架，旨在�
 ## License
 
 本项目基于 [MIT License](./LICENSE) 开源，详情请参阅 LICENSE 文件。
+
+## 公众号
+
+扫码关注【**赤霄攻防实验室**】，第一时间获取安全资讯、工具更新动态、使用教程与二次开发实践分享：
+
+<div align="center">
+  <img src="docs/assets/qrcode_for_gh_e6b45d6485aa_860.jpg" alt="赤霄攻防实验室公众号二维码" width="258"/>
+</div>
+
