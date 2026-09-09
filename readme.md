@@ -59,7 +59,8 @@ Rshell 是一款开源的 Golang 编写的支持多平台的 C2 框架，旨在�
 
 ## 相关项目
 
-- 客户端开源地址：https://github.com/Rubby2001/Rshell-client
+- Golang 客户端开源地址：https://github.com/Rubby2001/Rshell-client
+- Rust 客户端开源地址：https://github.com/Rubby2001/Rshell-client-rust
 - 前端开源地址：https://github.com/Rubby2001/Rshell-web
 
 ## 免责声明
