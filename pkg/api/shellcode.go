@@ -138,7 +138,7 @@ func StageShellCodeGen(c *gin.Context) {
 	}
 	binaryData, err := embeddedStager.ReadFile("stageshellcode/" + binaryFileName)
 	if err != nil {
-		c.JSON(http.StatusOK, gin.H{"status": 400, "data": "读取文件失败"})
+		c.JSON(http.StatusOK, gin.H{"status": 400, "data": "failed to read file"})
 	}
 
 	var modifiedData []byte
@@ -189,7 +189,7 @@ func StageShellCodeGen(c *gin.Context) {
 		ctype = "text/x-csrc"
 
 	default:
-		c.String(http.StatusBadRequest, "不支持的格式: %s，支持 hex, c, bin", shellcode.Format)
+		c.String(http.StatusBadRequest, "unsupported format: %s, supported: hex, c, bin", shellcode.Format)
 		return
 	}
 

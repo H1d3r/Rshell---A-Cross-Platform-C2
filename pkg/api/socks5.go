@@ -37,7 +37,7 @@ func Socks5Start(c *gin.Context) {
 		return
 	}
 	if inUse {
-		c.JSON(http.StatusOK, gin.H{"status": 400, "data": socks5Body.Socks5port + "端口被占用"})
+		c.JSON(http.StatusOK, gin.H{"status": 400, "data": socks5Body.Socks5port + " port already in use"})
 		return
 	}
 
@@ -61,7 +61,7 @@ func Socks5Open(c *gin.Context) {
 		logger.Error("检测端口时发生错误:", socks5Body.Socks5port, err)
 	}
 	if inUse {
-		c.JSON(http.StatusOK, gin.H{"status": 400, "data": socks5Body.Socks5port + "端口被占用"})
+		c.JSON(http.StatusOK, gin.H{"status": 400, "data": socks5Body.Socks5port + " port already in use"})
 		return
 	}
 	database.Engine.Where("uid = ? AND socks5port = ? AND user_name = ? AND password = ?", socks5Body.Uid, socks5Body.Socks5port, socks5Body.UserName, socks5Body.Password).Update(&database.Socks5{Status: 1})

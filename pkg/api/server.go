@@ -36,7 +36,7 @@ func GenServer(c *gin.Context) {
 	// 查找符合条件的文件
 	binaryFileName := findBinary(listenerType, osType, archType)
 	if binaryFileName == "" {
-		c.JSON(http.StatusBadRequest, gin.H{"error": "未找到匹配的服务端文件"})
+		c.JSON(http.StatusBadRequest, gin.H{"error": "no matching server file"})
 		return
 	}
 
@@ -47,7 +47,7 @@ func GenServer(c *gin.Context) {
 	}
 	binaryData, err := embeddedFiles.ReadFile("server/" + serverDir + "/" + binaryFileName)
 	if err != nil {
-		c.JSON(http.StatusBadRequest, gin.H{"error": "读取文件失败: " + err.Error()})
+		c.JSON(http.StatusBadRequest, gin.H{"error": "failed to read file: " + err.Error()})
 		return
 	}
 

