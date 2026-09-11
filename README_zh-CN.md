@@ -1,5 +1,7 @@
 # Rshell - 跨平台多协议 C2 框架
 
+**[English](./README.md)** | 简体中文
+
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](./LICENSE)
 ![Language](https://img.shields.io/badge/Language-Go-blue)
 ![GitHub Stars](https://img.shields.io/github/stars/Rubby2001/Rshell---A-Cross-Platform-C2?style=social)
