@@ -28,7 +28,7 @@ Specify the port with `-p` (default `8089`):
 ./Rshell -p 8089
 ```
 
-![image-20260429142230230](./assets/image-20260429142230230.png)
+![image-20260429142230230](./assets/home.png)
 
 ## Documentation
 
